@@ -1,14 +1,15 @@
-# Seller Dashboard – Full Stack Application  
-Backend: Spring Boot (H2 Database)  
-Frontend: Vue.js (Vite)
+# 🛍️ Seller Dashboard – Full Stack Application
 
-This project provides a complete seller performance dashboard with backend APIs and a simple frontend UI.
+**Backend:** Spring Boot (H2 Database)
+**Frontend:** Vue.js (Vite)
+
+This project provides a complete seller performance dashboard with backend APIs and a simple frontend UI for monitoring sales, revenue, and alerts.
 
 ---
 
-# ✅ 1. Project Structure
+## ✅ 1. Project Structure
 
-
+```text
 seller-dashboard/
 │
 ├── seller-dashboard-backend/     # Spring Boot API
@@ -20,66 +21,65 @@ seller-dashboard/
     ├── src/
     ├── package.json
     └── README.md (optional)
-
-
----
-
-# ✅ 2. Requirements
-
-| Software | Version |
-|---------|---------|
-| Java | 17+ |
-| Node.js | 18+ |
-| Maven | (Wrapper included) |
-| npm | latest |
+```
 
 ---
 
-# ✅ 3. Backend Setup (Spring Boot)
+## ✅ 2. Requirements
 
-## 📌 Navigate to backend folder
+| Software | Version            |
+| -------- | ------------------ |
+| Java     | 17+                |
+| Node.js  | 18+                |
+| Maven    | (Wrapper included) |
+| npm      | latest             |
 
+---
+
+## ✅ 3. Backend Setup (Spring Boot)
+
+### 📌 Navigate to backend folder
+
+```bash
 cd seller-dashboard-backend
+```
 
+### 📌 Start Backend Server
 
-## 📌 Start Backend Server
-Use Maven wrapper (works without installing Maven):
+Use Maven wrapper (no need to install Maven globally):
 
-
-.\mvnw.cmd spring-boot:run
-
+```bash
+./mvnw spring-boot:run
+```
 
 ✅ Server will start at:
-
-
-http://localhost:8080
-
+**[http://localhost:8080](http://localhost:8080)**
 
 ---
 
-# ✅ 4. Backend API Endpoints
+## ✅ 4. Backend API Endpoints
 
-| Endpoint | Description |
-|----------|-------------|
-| GET /api/sellers | Get all sellers |
-| GET /api/seller/{id}/summary | Get seller summary with alerts |
+| Endpoint                       | Description                    |
+| ------------------------------ | ------------------------------ |
+| `GET /api/sellers`             | Get all sellers                |
+| `GET /api/seller/{id}/summary` | Get seller summary with alerts |
 
 ---
 
-## ✅ Sample Response (GET /api/sellers)
+### ✅ Sample Response – `/api/sellers`
 
-json
+```json
 [
   { "id": 1, "name": "Ali", "region": "Karachi" },
   { "id": 2, "name": "Hassan", "region": "Lahore" }
 ]
-
+```
 
 ---
 
-## ✅ Sample Response (GET /api/seller/1/summary)
+### ✅ Sample Response – `/api/seller/1/summary`
 
-json
+```json
 {
   "sellerId": 1,
   "totalSales": 14500.00,
@@ -90,13 +90,13 @@ json
     "High return rate alert"
   ]
 }
-
+```
 
 ---
 
-# ✅ 5. Backend Project Structure
+## ✅ 5. Backend Project Structure
 
-
+```text
 src/main/java/com/assignment/seller_dashboard_backend/
 │
 ├── controller/           # API Controllers
@@ -108,69 +108,71 @@ src/main/resources/
 ├── application.properties
 ├── schema.sql
 └── data.sql
-
+```
 
 ---
 
-# ✅ 6. Backend Database (H2 In-Memory)
+## ✅ 6. Backend Database (H2 In-Memory)
 
-The backend loads tables automatically at runtime.
+The backend uses an **H2 in-memory database**, automatically loaded at runtime with schema and data.
 
 ### ✅ H2 Console
 
-http://localhost:8080/h2-console
-
+Access the console at:
+**[http://localhost:8080/h2-console](http://localhost:8080/h2-console)**
 
 ### ✅ H2 Credentials
-| Setting | Value |
-|--------|-------|
-| JDBC URL | jdbc:h2:mem:sellerdb |
-| Username | sa |
-| Password | (empty) |
+
+| Setting  | Value                  |
+| -------- | ---------------------- |
+| JDBC URL | `jdbc:h2:mem:sellerdb` |
+| Username | `sa`                   |
+| Password | *(empty)*              |
 
 ---
 
-# ✅ 7. Caching Overview
+## ✅ 7. Caching Overview
 
-Spring cache is enabled:
+Spring Cache is used for 30-second caching of seller summaries.
 
-java
+```java
 @Cacheable("sellerSummaryCache")
-public SellerSummaryResponse getSellerSummary(Integer sellerId)
+public SellerSummaryResponse getSellerSummary(Integer sellerId) { ... }
+```
 
-
-✅ Faster responses  
-✅ Fewer DB hits  
+✅ Improves performance
+✅ Reduces database queries
 
 ---
 
-# ✅ 8. Frontend Setup (Vue.js + Vite)
+## ✅ 8. Frontend Setup (Vue.js + Vite)
 
-## 📌 Navigate to frontend folder
+### 📌 Navigate to frontend folder
 
+```bash
 cd seller-dashboard-frontend
+```
 
+### 📌 Install dependencies
 
-## 📌 Install dependencies
-
+```bash
 npm install
+```
 
+### 📌 Start frontend
 
-## 📌 Start frontend
-
+```bash
 npm run dev
-
+```
 
 ✅ Frontend runs at:
-
-http://localhost:5173
-
+**[http://localhost:5173](http://localhost:5173)**
 
 ---
 
-# ✅ 9. Frontend Project Structure
+## ✅ 9. Frontend Project Structure
 
-
+```text
 seller-dashboard-frontend/
 │
 ├── src/
@@ -184,26 +186,26 @@ seller-dashboard-frontend/
 │
 ├── package.json
 └── vite.config.js
-
+```
 
 ---
 
-# ✅ 10. API Base URL (Frontend)
+## ✅ 10. API Base URL (Frontend)
 
+Set the base API URL for backend communication:
 
+```javascript
+// src/services/api.js
 export const API_BASE = "http://localhost:8080/api";
-
-
-Make sure this file exists:
-
-📌 src/services/api.js
+```
 
 ---
 
-# ✅ 11. Frontend Example Component
+## ✅ 11. Frontend Example Component
 
-### ✅ SellerDropdown.vue
-vue
+### SellerDropdown.vue
+
+```vue
 <script>
 import { API_BASE } from "../services/api";
 
@@ -241,81 +243,91 @@ export default {
     <p v-if="error" style="color:red">{{ error }}</p>
   </div>
 </template>
-
+```
 
 ---
 
-# ✅ 12. Running the Full System
+## ✅ 12. Running the Full System
 
-### ✅ 1. Start Backend
+### 1️⃣ Start Backend
 
+```bash
 cd seller-dashboard-backend
-.\mvnw.cmd spring-boot:run
+./mvnw spring-boot:run
+```
 
-
-✅ Running at → http://localhost:8080
+✅ Runs at → [http://localhost:8080](http://localhost:8080)
 
 ---
 
-### ✅ 2. Start Frontend
+### 2️⃣ Start Frontend
 
+```bash
 cd seller-dashboard-frontend
 npm install
 npm run dev
+```
 
-
-✅ Open → http://localhost:5173
+✅ Open → [http://localhost:5173](http://localhost:5173)
 
 ---
 
-# ✅ 13. Troubleshooting
+## ✅ 13. Troubleshooting
 
 ### ❌ Backend not starting?
-✔ Check Java version  
+
+✔ Check Java version
 ✔ Run:
 
-
-.\mvnw.cmd clean install
-
+```bash
+./mvnw clean install
+```
 
 ---
 
 ### ❌ Frontend cannot load sellers?
-✔ Ensure backend is running  
-✔ Ensure CORS is allowed  
-✔ Check API_BASE in /src/services/api.js
+
+✔ Ensure backend is running
+✔ Ensure CORS is enabled
+✔ Check `API_BASE` in `/src/services/api.js`
 
 ---
 
 ### ❌ H2 console not opening?
-Set JDBC URL:
 
+Use JDBC URL:
 
+```
 jdbc:h2:mem:sellerdb
-
-
----
-
-# ✅ 14. Technologies Used
-
-### ✅ Backend
-- Spring Boot 3.x  
-- JPA / Hibernate  
-- Spring Cache  
-- H2 Database  
-- Java 17  
-
-### ✅ Frontend
-- Vue.js 3 (Vite)  
-- JavaScript  
-- Fetch API  
+```
 
 ---
 
-# ✅ 15. Author
-Developed by *Muaz Khan*
+## ✅ 14. Technologies Used
+
+### 🔹 Backend
+
+* Spring Boot 3.x
+* Spring Data JPA / Hibernate
+* Spring Cache
+* H2 Database
+* Java 17
+
+### 🔹 Frontend
+
+* Vue.js 3 (Vite)
+* JavaScript (ES6)
+* Fetch API
+* CSS (Tailwind optional)
 
 ---
 
-# ✅ 16. License
-Open-source — free to use.
+## ✅ 15. Author
+
+Developed by **Muaz Khan**
+
+---
+
+## ✅ 16. License
+
+Open-source — free to use, modify, and share.
